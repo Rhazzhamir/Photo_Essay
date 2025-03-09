@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution of Lenovo | Photo Gallery</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .grechen-fuemen-regular {
+            font-family: "Grechen Fuemen", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 40px;
+        }
+        .section-title {
+            border-left: 4px solid #e60012;
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .gallery-item {
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        .gallery-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            color: white;
+        }
+        .gallery-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #e60012;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .gallery-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .gallery-description {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+        .comparison-container {
+            position: relative;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .comparison-images {
+            display: flex;
+        }
+        .comparison-image {
+            flex: 1;
+            position: relative;
+        }
+        .comparison-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .comparison-image:hover img {
+            transform: scale(1.05);
+        }
+        .comparison-label {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            font-size: 14px;
+        }
+        .model-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .vs-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e60012;
+            color: white;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .tech-change {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .tech-old {
+            color: #6c757d;
+        }
+        .tech-new {
+            color: #0275d8;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        .highlight-box {
+            background-color: #f8f9fa;
+            border-left: 3px solid #e60012;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .conclusion-item {
+            padding: 8px 0;
+        }
+        .reflection-section {
+            background-color: #eef2f7;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0;
+        }
+        .icon-box {
+            background-color: #0275d8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+        .gallery-details {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+        .gallery-section {
+            padding: 60px 0;
+        }
+        .gallery-section:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        .modal-img {
+            width: 100%;
+        }
+        .lightbox-modal .modal-content {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+        }
+        .btn-floating {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e60012;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        @media (max-width: 767px) {
+            .comparison-images {
+                flex-direction: column;
+            }
+            .comparison-image {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><span class="bg-danger p-1 me-2"> Lenovo </span> Evolution</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#introduction">Introduction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#conclusion">Conclusion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#author">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section" id="introduction">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4 grechen-fuemen-regular">The Evolution of Lenovo</h1>
+            <h3 class="mb-4">ThinkPad L530 vs. Slim 1</h3>
+            <p class="lead">A visual exploration of laptop transformation from 2012 to 2024</p>
+            <div class="mt-4">
+                <span class="badge bg-light text-dark me-2">IT 343 - Multimedia</span>
+                <span class="badge bg-light text-dark">EVSU Main Campus</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introduction Section -->
+    <section class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="highlight-box">
+                    <p class="lead mb-0">Technology evolves rapidly, and laptops are no exception. This photo essay explores the transformation of Lenovo laptops by comparing the Lenovo ThinkPad L530 (2012) and the Lenovo Slim 1 (2024). Through four key <b>Overall Design, Port Revolution, TrackPoint and Precision Touchpad, aspects—Keyboard Evolution, </b> and this essay highlights how Lenovo has adapted to modern computing needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="text-center mb-5 grechen-fuemen-regular">Photo Gallery: 12 Years of Evolution</h2>
+            
+            <hr class="border-5">
+            <!-- Overall Design Gallery Item -->
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="comparison-container">
+                        <div class="comparison-images">
+                            <div class="comparison-image">
+                                <span class="model-badge">ThinkPad L530 (2012)</span>
+                                <img src="src/old/thinkpad(overall_design).jpg" alt="ThinkPad L530 Full View">
+                                <div class="comparison-label">Thick, Durable Design</div>
+                            </div>
+                            <div class="comparison-image">
+                                <span class="model-badge">Slim 1 (2024)</span>
+                                <img src="src/new/slim1(overll_design).jpg" alt="Slim 1 Full View">
+                                <div class="comparison-label">Ultra-Thin Modern Design</div>
+                            </div>
+                            <div class="vs-badge">VS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="gallery-details h-100">
+                        <h3 class="section-title grechen-fuemen-regular" id="design">Overall Design Evolution</h3>
+                        <p>"The ThinkPad L530, built for durability, is thick and heavy, while the Slim 1 embodies modern minimalism with its ultra-thin frame. The screen-to-body ratio has also improved significantly, reducing thick bezels for a more immersive experience."</p>
+                        <div class="tech-change">
+                            <p class="mb-2 fw-bold">Technical Changes:</p>
+                            <p class="tech-old"><i class="fas fa-history me-2"></i> Old: Thick and sturdy chassis, large bezels, heavier body</p>
+                            <p class="tech-new mb-0"><i class="fas fa-bolt me-2"></i> New: Ultra-thin design, lightweight, narrow bezels</p>
+                        </div>
+                        <button type="button" class="view-button bg-danger mt-3 text-light p-2" data-bs-toggle="modal" data-bs-target="#overallDesignModal">
+                            <i class="fas fa-expand"></i> View Full Images
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-5">
+            <!-- Ports Gallery Item -->
+            <div class="row mb-5">
+                <div class="col-md-6 order-md-2">
+                    <div class="comparison-container">
+                        <div class="comparison-images">
+                            <div class="comparison-image">
+                                <span class="model-badge">ThinkPad L530 (2012)</span>
+                                <img src="src/old/port.jpg" alt="ThinkPad L530 Ports">
+                                <div class="comparison-label">Multiple Legacy Ports</div>
+                            </div>
+                            <div class="comparison-image">
+                                <span class="model-badge">Slim 1 (2024)</span>
+                                <img src="src/new/port.jpg" alt="Slim 1 Ports">
+                                <div class="comparison-label">Minimalist port</div>
+                            </div>
+                            <div class="vs-badge">VS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="gallery-details h-100">
+                        <h3 class="section-title grechen-fuemen-regular" id="ports">Port Revolution</h3>
+                        <p>"Once equipped with every possible port—VGA for projectors, Ethernet for stable internet, and even a CD drive—the ThinkPad L530 was built for versatility. In contrast, the Slim 1 embraces the minimalist port."</p>
+                        <div class="tech-change">
+                            <p class="mb-2 fw-bold">Technical Changes:</p>
+                            <p class="tech-old"><i class="fas fa-history me-2"></i> Old: Multiple legacy ports (VGA, USB 2.0, Ethernet, CD/DVD drive)</p>
+                            <p class="tech-new mb-0"><i class="fas fa-bolt me-2"></i> New: Fewer ports, prioritizing less port and wireless connectivity</p>
+                        </div>
+                        <button type="button" class="view-button bg-danger mt-3 text-light p-2" data-bs-toggle="modal" data-bs-target="#portRevolutionModal">
+                            <i class="fas fa-expand"></i> View Full Images
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-5">
+            <!-- TrackPoint vs. Precision Touchpad Gallery Item -->
+            <div class="row mb-5">
+                <div class="col-md-6">
+                    <div class="comparison-container">
+                        <div class="comparison-images">
+                            <div class="comparison-image">
+                                <span class="model-badge">ThinkPad L530 (2012)</span>
+                                <img src="src/old/TrackPoint.jpg" alt="ThinkPad L530 TrackPoint">
+                                <div class="comparison-label">TrackPoint with Physical Buttons</div>
+                            </div>
+                            <div class="comparison-image">
+                                <span class="model-badge">Slim 1 (2024)</span>
+                                <img src="src/new/touchpad.jpg" alt="Slim 1 Touchpad">
+                                <div class="comparison-label">Large Precision Touchpad</div>
+                            </div>
+                            <div class="vs-badge">VS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="gallery-details h-100">
+                        <h3 class="section-title grechen-fuemen-regular" id="touchpad">TrackPoint vs. Precision Touchpad</h3>
+                        <p>"The ThinkPad L530 featured Lenovo’s signature red TrackPoint, allowing users to navigate without moving their hands away from the keyboard. The Slim 1, however, replaces it with a large precision touchpad, designed for multi-touch gestures and smoother navigation."</p>
+                        <div class="tech-change">
+                            <p class="mb-2 fw-bold">Technical Changes:</p>
+                            <p class="tech-old"><i class="fas fa-history me-2"></i> Old: TrackPoint with dedicated physical buttons for precision control</p>
+                            <p class="tech-new mb-0"><i class="fas fa-hand-pointer me-2"></i> New: Large precision touchpad with multi-touch gesture support</p>
+                        </div>
+                        <button type="button" class="view-button bg-danger mt-3 text-light p-2" data-bs-toggle="modal" data-bs-target="#touchpadModal">
+                            <i class="fas fa-expand"></i> View Full Images
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-5">
+            <!-- Keyboard Gallery Item -->
+            <div class="row">
+                <div class="col-md-6 order-md-2">
+                    <div class="comparison-container">
+                        <div class="comparison-images">
+                            <div class="comparison-image">
+                                <span class="model-badge">ThinkPad L530 (2012)</span>
+                                <img src="src/old/keyboard.jpg" alt="ThinkPad L530 Keyboard">
+                                <div class="comparison-label">Tactile Mechanical-Style Keys</div>
+                            </div>
+                            <div class="comparison-image">
+                                <span class="model-badge">Slim 1 (2024)</span>
+                                <img src="src/new/keyboard.jpg" alt="Slim 1 Keyboard">
+                                <div class="comparison-label">Modern Chiclet-Style Keys</div>
+                            </div>
+                            <div class="vs-badge">VS</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <div class="gallery-details h-100">
+                        <h3 class="section-title grechen-fuemen-regular" id="keyboard">Keyboard Transformation</h3>
+                        <p>"The ThinkPad L530 features deep, tactile keys designed for long typing sessions, while the Slim 1 adopts a chiclet-style keyboard with a flatter, quieter design. The shift reflects the modern preference for minimalism and sleekness."</p>
+                        <div class="tech-change">
+                            <p class="mb-2 fw-bold">Technical Changes:</p>
+                            <p class="tech-old"><i class="fas fa-history me-2"></i> Old: Full-sized mechanical keyboard with dedicated buttons</p>
+                            <p class="tech-new mb-0"><i class="fas fa-bolt me-2"></i> New: Chiclet keys with reduced key travel for quieter typing</p>
+                        </div>
+                        <button type="button" class="view-button bg-danger mt-3 text-light p-2" data-bs-toggle="modal" data-bs-target="#keyboardModal">
+                            <i class="fas fa-expand"></i> View Full Images
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-5">
+    <!-- Mosaic Gallery -->
+    <section class="container my-5">
+        <h2 class="section-title text-center grechen-fuemen-regular">Gallery Highlights</h2>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="src/new/Untitled.jpg" alt="ThinkPad L530 Close-up" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">2012</span>
+                        <h4 class="gallery-title">ThinkPad L530 Detail</h4>
+                        <p class="gallery-description">Classic ThinkPad design with industrial appeal</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="src/new/Untitled.jpg" alt="Slim 1 Close-up" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">2024</span>
+                        <h4 class="gallery-title">Slim 1 Detail</h4>
+                        <p class="gallery-description">Modern minimalism at its finest</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="gallery-item">
+                    <img src="src/new/Untitled.jpg" alt="Side by Side" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Comparison</span>
+                        <h4 class="gallery-title">12 Years Apart</h4>
+                        <p class="gallery-description">The dramatic evolution of laptop form factors</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="gallery-item">
+                    <img src="src/new/Untitled.jpg" alt="Screen Comparison" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Displays</span>
+                        <h4 class="gallery-title">Display Evolution</h4>
+                        <p class="gallery-description">From thick bezels to edge-to-edge screens</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="gallery-item">
+                    <img src="src/new/Untitled.jpg" alt="Thickness Comparison" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Profile</span>
+                        <h4 class="gallery-title">The Thinning</h4>
+                        <p class="gallery-description">Profile view shows dramatic reduction in thickness</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-5">
+
+    <!-- Conclusion Section -->
+    <section class="container" id="conclusion">
+        <h2 class="section-title">Conclusion: The Shift Towards Portability & Efficiency</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <p class="lead">This comparison between the Lenovo ThinkPad L530 and the Lenovo Slim 1 reveals how laptop technology has evolved to prioritize portability, efficiency, and minimalism.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-success"><i class="fas fa-plus-circle me-2"></i>What We Gained:</h4>
+                                <ul class="list-unstyled">
+                                    <li class="conclusion-item"><i class="fas fa-check-circle text-success me-2"></i>Faster performance</li>
+                                    <li class="conclusion-item"><i class="fas fa-check-circle text-success me-2"></i>Lighter, more portable designs</li>
+                                    <li class="conclusion-item"><i class="fas fa-check-circle text-success me-2"></i>Improved displays and modern connectivity</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-danger"><i class="fas fa-minus-circle me-2"></i>What We Lost:</h4>
+                                <ul class="list-unstyled">
+                                    <li class="conclusion-item"><i class="fas fa-times-circle text-danger me-2"></i>Fewer legacy ports (VGA, Ethernet, CD drive)</li>
+                                    <li class="conclusion-item"><i class="fas fa-times-circle text-danger me-2"></i>Less repairability (battery replacements, RAM upgrades)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box mt-4">
+                    <h5><i class="fas fa-lightbulb text-warning me-2"></i>Final Thought:</h5>
+                    <p class="mb-0">"The evolution of Lenovo laptops reflects a broader trend in technology—moving towards lightweight, efficient, and wireless computing. But with progress comes trade-offs, as older features that some users still find valuable disappear over time."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Author's Reflection -->
+    <section class="container" id="author">
+        <h2 class="section-title">Author's Reflection</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="reflection-section">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-box">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4 class="mb-0">About the Author</h4>
+                    </div>
+                    <p class="fst-italic">"Documenting this transformation through photography allowed me to appreciate the rapid changes in hardware design. The challenge was capturing fine details, such as keyboard textures and screen differences, while maintaining consistent lighting and composition. This project made me realize that technology doesn't just evolve—it adapts to the way we live and work."</p>
+                    <div class="text-end mt-4">
+                        <p class="fw-bold mb-0">- [Your Name]</p>
+                        <p class="small text-muted">IT 343 - Multimedia, EVSU Main Campus</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Credits & Acknowledgments</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-user me-2"></i> Author: [Your Name]</li>
+                        <li><i class="fas fa-book me-2"></i> Course: IT 343 - Multimedia</li>
+                        <li><i class="fas fa-university me-2"></i> School: EVSU Main Campus</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <h5>Connect With Me</h5>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="background-color: rgba(255,255,255,0.2);">
+            <div class="text-center">
+                <p class="mb-0">© 2024 The Evolution of <span class="bg-danger p-2 m-2">  Lenovo </span> | Photo Essay Project</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Back to Top Button -->
+    <a href="#" class="btn-floating" id="back-to-top">
+        <i class="fas fa-laptop"></i>
+    </a>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Back to top button functionality
+        const backToTopButton = document.getElementById("back-to-top");
+        
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        });
+        
+        backToTopButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    </script>
+
+    <!-- Modals for Full Images -->
+    <!-- Overall Design Modal -->
+    <div class="modal fade" id="overallDesignModal" tabindex="-1" aria-labelledby="overallDesignModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title grechen-fuemen-regular" id="overallDesignModalLabel">Overall Design</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>ThinkPad L530</h5>
+                    <img src="src/old/thinkpad(overall_design).jpg" alt="ThinkPad L530 Full View" class="modal-img">
+                    <h5 class="mt-3">Slim 1</h5>
+                    <img src="src/new/slim1(overll_design).jpg" alt="Slim 1 Full View" class="modal-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Port Revolution Modal -->
+    <div class="modal fade" id="portRevolutionModal" tabindex="-1" aria-labelledby="portRevolutionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title grechen-fuemen-regulars" id="portRevolutionModalLabel">Port Revolution</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>ThinkPad L530</h5>
+                    <img src="src/old/port.jpg" alt="ThinkPad L530 Ports" class="modal-img">
+                    <h5 class="mt-3">Slim 1</h5>
+                    <img src="src/new/port.jpg" alt="Slim 1 Ports" class="modal-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TrackPoint vs. Precision Touchpad Modal -->
+    <div class="modal fade" id="touchpadModal" tabindex="-1" aria-labelledby="touchpadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title grechen-fuemen-regulars" id="touchpadModalLabel">TrackPoint vs. Precision Touchpad</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>ThinkPad L530</h5>
+                    <img src="src/old/TrackPoint.jpg" alt="ThinkPad L530 TrackPoint" class="modal-img">
+                    <h5 class="mt-3">Slim 1</h5>
+                    <img src="src/new/touchpad.jpg" alt="Slim 1 Touchpad" class="modal-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Modal -->
+    <div class="modal fade" id="keyboardModal" tabindex="-1" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title grechen-fuemen-regulars" id="keyboardModalLabel">Keyboard Transformation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5>ThinkPad L530</h5>
+                    <img src="src/old/keyboard.jpg" alt="ThinkPad L530 Keyboard" class="modal-img">
+                    <h5 class="mt-3">Slim 1</h5>
+                    <img src="src/new/keyboard.jpg" alt="Slim 1 Keyboard" class="modal-img">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
